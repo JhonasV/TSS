@@ -19,13 +19,15 @@ Restore the dependecies in the folder `TSS` root
 ```bash
 dotnet restore
 ```
-Add Sql Server connection string in  `TSS/appsettings.development.json` file
+Copy file `appsettings.json` with the name `appsettings.Development.json` and add Sql Server connection string 
 
 ```bash
- "DefaultConnection": "Server={server};Database={database};User Id={user};Password={password};"
+  "ConnectionStrings": {
+     "DefaultConnection": "Server={server};Database={database};User Id={user};Password={password};"
+  }
 ```
-Go in the root of the folder `TSS` and setup the database
-
+Setup the database
+(if database exists ignore this step)
 
 ```bash
 Update-database
@@ -34,7 +36,7 @@ OR
 ### EF CORE CLI
 
 ```bash
-dotnet ef database update
+dotnet ef database update 
 ```
 
 
@@ -44,7 +46,7 @@ Go to the project root folder
 dotnet run -p TSS
 ```
 
-App Running must be running in ports:
+App must be running in ports:
 ```bash
  localhost:5001 OR localhost:5000
 ```
