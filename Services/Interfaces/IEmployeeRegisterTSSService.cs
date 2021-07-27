@@ -13,6 +13,7 @@ namespace TSS.Services.Interfaces
     {
         byte[] GetXmlFromList(List<RegistroEmpleadoTss> list);
         List<RegistroEmpleadoTss> GetListFromXml(IFormFile file);
+        List<RegistroEmpleadoTss> GetListFromDFDL(IFormFile file);
         Task<List<ImportResult>> SaveEmployeesAsync(List<RegistroEmpleadoTss> list);
         Task<bool> EmployeeExistsAsync(string employeeName);
     }

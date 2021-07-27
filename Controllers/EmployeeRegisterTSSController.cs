@@ -44,5 +44,13 @@ namespace TSS.Controllers
             return Ok(results);
         }
 
+        [HttpPost("import/dfdl")]
+        public async Task<IActionResult> ImportDFDL(IFormFile file)
+        {
+            var employees = _employeeRegisterTSSService.GetListFromDFDL(file);
+            var result =  await _employeeRegisterTSSService.SaveEmployeesAsync(employees);
+            return Ok(result);
+        }
+
     }
 }

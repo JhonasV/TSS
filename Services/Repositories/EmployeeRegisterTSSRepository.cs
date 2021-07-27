@@ -61,7 +61,6 @@ namespace TSS.Services.Repositories
                 EmailEmpresa = employee.Element("EmailEmpresa").Value
             }).ToList();
 
-
             return employees;
         }
 
@@ -136,5 +135,52 @@ namespace TSS.Services.Repositories
 
         public async Task<bool> EmployeeExistsAsync(string employeeName) => await _context.RegistroEmpleadoTsses.Where(e => e.NombreEmpleado.ToLower() == employeeName.ToLower()).AnyAsync();
 
+        public List<RegistroEmpleadoTss> GetListFromDFDL(IFormFile file)
+        {
+
+
+            string data = string.Empty;
+            using(var reader = new StreamReader(file.OpenReadStream()))
+            {
+                data = reader.ReadToEnd();
+            }
+
+            var result = new List<RegistroEmpleadoTss>();
+           
+
+            var dataSplited = data.Split(new [] { Environment.NewLine }, StringSplitOptions.None);
+            foreach(var value in dataSplited)
+            {
+                if(value == string.Empty){
+                    break;
+                }
+                
+                var valueSplited = value.Split("|");
+                var employee = new RegistroEmpleadoTss
+                {
+                    Id = int.Parse(valueSplited[0]),
+                    TipoEmpleador = valueSplited[1],
+                    RazonSocial = valueSplited[2],
+                    Rnc = valueSplited[3],
+                    NombreComercial = valueSplited[4],
+                    ActividadComercial = valueSplited[5],
+                    Calle = valueSplited[6],
+                    No = valueSplited[7],
+                    Sector = valueSplited[8],
+                    Municipio = valueSplited[9],
+                    Provincia = valueSplited[10],
+                    ReferenciaDireccion = valueSplited[11],
+                    TelefonoEmpresa = valueSplited[12],
+                    EmailEmpresa = valueSplited[13],
+                    NombreEmpleado = valueSplited[14],
+                    CedulaEmpleado = valueSplited[15]
+                };
+                result.Add(employee);
+            }
+
+
+
+            return result;
+        }
     }
 }
