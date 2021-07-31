@@ -1,8 +1,8 @@
 import React from "react";
-
+import { AgGridReact, AgGridColumn } from "ag-grid-react";
 import { Table } from "react-bootstrap";
 
-const EmployeeTable = ({ employees, loadingEmployees }) => {
+const EmployeeTable = ({ employees }) => {
   const renderTbody = () => {
     return employees.map((item) => (
       <tr key={item.id}>
@@ -18,20 +18,17 @@ const EmployeeTable = ({ employees, loadingEmployees }) => {
   };
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Nombre Empleado</th>
-          <th>Cedula Empleado</th>
-          <th>Tipo Empleador</th>
-          <th>Razón Social</th>
-          <th>RNC</th>
-          <th>Nombre Comercial</th>
-          <th>Actividad Comercial</th>
-        </tr>
-      </thead>
-      <tbody>{loadingEmployees ? "Cargando Listado" : renderTbody()}</tbody>
-    </Table>
+    <div className="ag-theme-alpine" style={{ height: 700, width: "100%" }}>
+      <AgGridReact rowData={employees}>
+        <AgGridColumn field="nombreEmpleado"></AgGridColumn>
+        <AgGridColumn field="cedulaEmpleado"></AgGridColumn>
+        <AgGridColumn field="tipoEmpleador"></AgGridColumn>
+        <AgGridColumn field="razonSocial"></AgGridColumn>
+        <AgGridColumn field="rnc"></AgGridColumn>
+        <AgGridColumn field="nombreComercial"></AgGridColumn>
+        <AgGridColumn field="actividadComercial"></AgGridColumn>
+      </AgGridReact>
+    </div>
   );
 };
 export default EmployeeTable;
